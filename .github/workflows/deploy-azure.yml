@@ -32,7 +32,7 @@ jobs:
           operation: create
           name: Development
           location: westus2
-          scope: subscription
+          scope: resourceGroup
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           template-file: ./src/DKershnerBackend/infra/stacks/sql/main.bicep
           parameters-file: ./src/DKershnerBackend/infra/stacks/sql/parameters.json
