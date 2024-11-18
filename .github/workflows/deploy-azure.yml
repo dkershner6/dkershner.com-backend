@@ -1,0 +1,18 @@
+name: Deploy to Azure
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  infra-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: azure/login@v1
+        with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - run: az stack sub create --name 'dk-sub-resources'  --template-file 'main.bicep' --location 'westus2' --action-on-unmanage 'detachAll' --deny-settings-mode 'none'
+        working-directory: infra/stacks
+      - run: az stack group create --name 'dk-sql' --resource-group 'dk-sql' --template-file './sql/main.bicep' --parameters ./sql/parameters.json --action-on-unmanage 'detachAll' --deny-settings-mode 'none'
+        working-directory: infra/stacks

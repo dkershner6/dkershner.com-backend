@@ -1,0 +1,2 @@
+az stack sub create --name 'dk-sub-resources'  --template-file 'main.bicep' --location 'westus2' --action-on-unmanage 'detachAll' --deny-settings-mode 'none'
+az stack group create --name 'dk-sql' --resource-group 'dk-sql' --template-file './sql/main.bicep' --parameters ./sql/parameters.json --action-on-unmanage 'detachAll' --deny-settings-mode 'none'
