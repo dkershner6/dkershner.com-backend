@@ -12,7 +12,30 @@ jobs:
       - uses: azure/login@v1
         with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - run: az stack sub create --name 'dk-sub-resources'  --template-file 'main.bicep' --location 'westus2' --action-on-unmanage 'detachAll' --deny-settings-mode 'none'
-        working-directory: infra/stacks
-      - run: az stack group create --name 'dk-sql' --resource-group 'dk-sql' --template-file './sql/main.bicep' --parameters ./sql/parameters.json --action-on-unmanage 'detachAll' --deny-settings-mode 'none'
-        working-directory: infra/stacks
+      - name: Deployment
+        uses: azure/bicep-deploy@v1
+        with:
+          type: deploymentStack
+          operation: create
+          name: Development
+          location: westus2
+          scope: subscription
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          template-file: ./src/DKershnerBackend/infra/stacks/main.bicep
+          action-on-unmanage-resources: detachAll
+          action-on-unmanage-resourcegroups: detachAll
+          deny-settings-mode: none
+      - name: Deployment
+        uses: azure/bicep-deploy@v1
+        with:
+          type: deploymentStack
+          operation: create
+          name: Development
+          location: westus2
+          scope: subscription
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          template-file: ./src/DKershnerBackend/infra/stacks/sql/main.bicep
+          parameters-file: ./src/DKershnerBackend/infra/stacks/sql/parameters.json
+          action-on-unmanage-resources: detachAll
+          action-on-unmanage-resourcegroups: detachAll
+          deny-settings-mode: none
