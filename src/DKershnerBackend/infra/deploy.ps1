@@ -1,0 +1,1 @@
+az stack sub create --name 'dk-test-webapp'  --template-file 'main.bicep' --location 'westus2' --action-on-unmanage 'detachAll' --deny-settings-mode 'none'
