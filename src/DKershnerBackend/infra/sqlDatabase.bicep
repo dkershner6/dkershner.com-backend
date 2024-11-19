@@ -1,4 +1,6 @@
+param location string
 param sqlServerName string
+param stackName string
 
 resource sqlServer 'Microsoft.Sql/servers@2023-08-01-preview' existing = {
   name: sqlServerName
@@ -7,9 +9,9 @@ resource sqlServer 'Microsoft.Sql/servers@2023-08-01-preview' existing = {
 resource dkDatabase 'Microsoft.Sql/servers/databases@2023-08-01-preview' = {
   parent: sqlServer
   name: 'dk-sql'
-  location: 'westus2'
+  location: location
   tags: {
-    stack: 'dk-sql'
+    stack: stackName
   }
   sku: {
     name: 'GP_S_Gen5'

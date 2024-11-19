@@ -1,10 +1,12 @@
+param location string
 param sqlServerName string = 'dk-sqlserver6'
+param stackName string
 
 resource server 'Microsoft.Sql/servers@2023-08-01-preview' = {
   name: sqlServerName
-  location: 'westus2'
+  location: location
   tags: {
-    stack: 'dk-sql'
+    stack: stackName
   }
   properties: {
     administratorLogin: 'CloudSA85bd9b0e'
