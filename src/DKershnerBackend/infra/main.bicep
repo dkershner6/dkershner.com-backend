@@ -43,3 +43,16 @@ module hostingPlan './webServerFarm.bicep' = {
     stackName: stackName
   }
 }
+
+module webApp 'webApp.bicep' = {
+  name: 'webApp'
+  scope: webappResourceGroup
+  params: {
+    location: location
+    stackName: stackName
+    hostingPlanId: hostingPlan.outputs.hostingPlanId
+  }
+  dependsOn: [
+    hostingPlan
+  ]
+}
