@@ -5,7 +5,7 @@ on:
       - main
 
 env:
-  AZURE_WEBAPP_NAME: learn-iac-arm
+  AZURE_WEBAPP_NAME: dk-webapp
   AZURE_WEBAPP_PACKAGE_PATH: src\DKershnerWebApp\published
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
@@ -37,6 +37,12 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
+    
+    - name: Run Bicep Linter
+      uses: synergy-au/bicep-lint-action@v1
+      with:
+        analyse-all-files: "true" # optional, defaults to false (only analyse changed files)
+
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v3
       with:
