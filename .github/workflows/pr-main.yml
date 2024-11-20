@@ -21,14 +21,7 @@ jobs:
       with:
         inlineScript: |
           az bicep install
-          az bicep lint --file ./infra/main.bicep --diagnostics-format sarif > bicep.sarif
-
-    - name: Upload SARIF
-      if: (success() || failure())
-      uses: github/codeql-action/upload-sarif@v3
-      with:
-        category: bicep
-        sarif_file: bicep.sarif
+          az bicep lint --file ./infra/main.bicep
 
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v3
