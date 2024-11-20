@@ -12,7 +12,7 @@ resource server 'Microsoft.Sql/servers@2023-08-01-preview' = {
     administratorLogin: 'CloudSA85bd9b0e'
     version: '12.0'
     minimalTlsVersion: '1.2'
-    publicNetworkAccess: 'Disabled'
+    publicNetworkAccess: 'Enabled'
     administrators: {
       administratorType: 'ActiveDirectory'
       principalType: 'User'
@@ -85,5 +85,31 @@ resource serverConnectionPolicies 'Microsoft.Sql/servers/connectionPolicies@2023
     connectionType: 'Default'
   }
 }
+
+resource azureFirewallRules 'Microsoft.Sql/servers/firewallRules@2023-08-01-preview' = {
+  parent: server
+  name: 'AllowAllWindowsAzureIps'
+  properties: {
+    startIpAddress: '0.0.0.0'
+    endIpAddress: '0.0.0.0'
+  }
+  dependsOn: [
+    server
+  ]
+}
+
+resource azureFirewallRulesDevs 'Microsoft.Sql/servers/firewallRules@2023-08-01-preview' = [
+  for ipAddress in ['184.60.9.31']: {
+    parent: server
+    name: 'Allow${ipAddress}'
+    properties: {
+      startIpAddress: ipAddress
+      endIpAddress: ipAddress
+    }
+    dependsOn: [
+      server
+    ]
+  }
+]
 
 output sqlServerName string = server.name
