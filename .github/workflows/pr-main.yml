@@ -17,11 +17,13 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Run Bicep Linter
-      uses: synergy-au/bicep-lint-action@v1
+    - name: Lint Bicep
+      uses: azure/CLI@v2
       with:
-        analyse-all-files: "true" # optional, defaults to false (only analyse changed files)
-        
+        inlineScript: |
+          az bicep install
+          az bicep lint --file ./infra/main.bicep --diagnostics-format sarif > bicep.sarif
+
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v3
       with:
