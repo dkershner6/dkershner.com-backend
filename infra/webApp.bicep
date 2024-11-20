@@ -1,5 +1,3 @@
-extension microsoftGraphV1
-
 param location string
 param stackName string
 

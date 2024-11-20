@@ -5,7 +5,7 @@ on:
       - main
 
 env:
-  AZURE_WEBAPP_NAME: learn-iac-arm
+  AZURE_WEBAPP_NAME: dk-webapp
   AZURE_WEBAPP_PACKAGE_PATH: src\DKershnerWebApp\published
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
@@ -34,7 +34,7 @@ jobs:
           deny-settings-mode: none
 
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET SDK
@@ -56,7 +56,7 @@ jobs:
         path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
   deploy-webapp:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     needs: 
     - build
     - deploy-infra
