@@ -5,11 +5,10 @@ on:
       - main
 
 env:
-  AZURE_WEBAPP_NAME: learn-iac-arm
-  AZURE_WEBAPP_PACKAGE_PATH: src\DKershnerWebApp\published
+  AZURE_WEBAPP_PACKAGE_PATH: src/DKershnerWebApp/published
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
-  WORKING_DIRECTORY: src\DKershnerWebApp
+  WORKING_DIRECTORY: src/DKershnerWebApp
 
 jobs:
   build:
