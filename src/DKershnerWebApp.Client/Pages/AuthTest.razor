@@ -1,0 +1,20 @@
+@inject AuthenticationStateProvider _persistentAuthenticationStateProvider
+
+<p>@currentLoggedInUser</p>
+
+@code {
+    private string? currentLoggedInUser = "Loading...";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        Console.WriteLine($"OnAfterRenderAsync first render: {firstRender}");
+        if (firstRender == true)
+        {
+            Console.WriteLine("First render is true");
+            var authState = await _persistentAuthenticationStateProvider.GetAuthenticationStateAsync();
+            Console.WriteLine($"AuthState: {authState.User.Identity?.Name}");
+            currentLoggedInUser = authState.User.Identity?.Name;
+            this.StateHasChanged();
+        }
+    }
+}
