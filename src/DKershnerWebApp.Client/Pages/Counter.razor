@@ -1,5 +1,5 @@
 ﻿@page "/counter"
-@rendermode InteractiveServer
+@rendermode InteractiveAuto
 
 <PageTitle>Counter</PageTitle>
 
@@ -8,6 +8,13 @@
 <p role="status">Current count: @currentCount</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+<div>
+    <AuthTest></AuthTest>
+</div>
+
+
+
 
 @code {
     private int currentCount = 0;
