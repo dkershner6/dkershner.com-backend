@@ -19,7 +19,7 @@ resource insightsWorkspace 'Microsoft.OperationalInsights/workspaces@2020-08-01'
 }
 
 resource insights 'microsoft.insights/components@2020-02-02-preview' = {
-  name: 'testggg'
+  name: '${name}-insights'
   location: 'westus2'
   tags: {
     stack: 'dk-webapp'
